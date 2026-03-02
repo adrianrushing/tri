@@ -10,6 +10,23 @@ type Item struct {
 	Text string
 }
 
+func ReadItems(filename string) ([]Item, error) {
+
+	b, err := os.ReadFile(filename)
+
+	if err != nil {
+		return []Item{}, err
+	}
+
+	var items []Item
+
+	if err := json.Unmarshal(b, &items); err != nil {
+		return []Item{}, err
+	}
+
+	return items, nil
+}
+
 func SaveItems(filename string, items []Item) error {
 
 	b, err := json.Marshal(items)
