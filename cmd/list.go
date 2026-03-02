@@ -6,6 +6,9 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
+	"sort"
+	"text/tabwriter"
 
 	"github.com/adrianrushing/tri/todo"
 	"github.com/spf13/cobra"
@@ -15,17 +18,25 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List todos",
-	Run:   listRun}
+	Long:  `Listing the todos`,
+	Run:   listRun,
+}
 
 func listRun(cmd *cobra.Command, args []string) {
 
-	items, err := todo.ReadItems("/home/adrian/.tridos.json")
+	items, err := todo.ReadItems(dataFile)
 
 	if err != nil {
 		log.Printf("%v", err)
 	}
+	sort.Sort(todo.ByPri(items))
+	w := tabwriter.NewWriter(os.Stdout, 3, -0, 1, ' ', 0)
 
-	fmt.Println(items)
+	for _, i := range items {
+		fmt.Fprintln(w, i.PrettyP()+"\t"+i.Text+"\t")
+	}
+
+	w.Flush()
 
 }
 
