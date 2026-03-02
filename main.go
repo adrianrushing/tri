@@ -7,7 +7,6 @@ import "github.com/adrianrushing/tri/cmd"
 
 func main() {
 
-	println("bellow")
 	cmd.Execute()
 
 }
