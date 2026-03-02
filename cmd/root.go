@@ -4,9 +4,8 @@ Copyright © 2026 Adrian
 package cmd
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
+	"os"
 )
 
 // rootCmd represents the base command when called without any subcommands
