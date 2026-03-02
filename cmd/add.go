@@ -5,7 +5,7 @@ package cmd
 
 import (
 	"fmt"
-
+	"github.com/adrianrushing/tri/todo"
 	"github.com/spf13/cobra"
 )
 
@@ -20,14 +20,21 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("add called")
+		var items = []todo.Item{}
+
+		for _, x := range args {
+			items = append(items, todo.Item{Text: x})
+		}
+		err := todo.SaveItems("/home/adrian/projects/tri/tridos.json", items)
+
+		if err != nil {
+			fmt.Errorf("%v", err)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(addCmd)
-
-	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
