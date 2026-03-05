@@ -1,13 +1,12 @@
 /*
-Copyright © 2026 Adrian
+Copyright © 2026 Adrian Rushing
 */
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	"log"
 	"os"
-
-	"github.com/spf13/cobra"
 )
 
 var dataFile string
@@ -19,13 +18,9 @@ var rootCmd = &cobra.Command{
 	Long: `Tri will help you get more done in less time. 
 	It's designed to be as simple as possible to help
 	you accomplish your goals.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
