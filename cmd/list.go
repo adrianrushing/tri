@@ -12,6 +12,7 @@ import (
 
 	"github.com/adrianrushing/tri/todo"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // listCmd represents the list command
@@ -24,7 +25,7 @@ var listCmd = &cobra.Command{
 
 func listRun(cmd *cobra.Command, args []string) {
 
-	items, err := todo.ReadItems(dataFile)
+	items, err := todo.ReadItems(viper.GetString("dataFile"))
 
 	if err != nil {
 		log.Printf("%v", err)

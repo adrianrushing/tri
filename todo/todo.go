@@ -2,7 +2,6 @@ package todo
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"strconv"
 )
@@ -37,6 +36,9 @@ func (s ByPri) Swap(i, j int) {
 }
 
 func (s ByPri) Less(i, j int) bool {
+	if s[i].Priority != s[j].Priority {
+		return s[i].Done
+	}
 	if s[i].Priority == s[j].Priority {
 		return s[i].position < s[j].position
 	}
@@ -50,6 +52,13 @@ func (i *Item) PrettyP() string {
 
 	if i.Priority == 3 {
 		return "(3)"
+	}
+	return ""
+}
+
+func (i *Item) PrettyDone() string {
+	if i.Done {
+		return "X"
 	}
 	return ""
 }
@@ -83,8 +92,5 @@ func SaveItems(filename string, items []Item) error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Println(string(b))
-
 	return nil
 }
